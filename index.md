@@ -9,8 +9,7 @@ This is the documentation hub for H-CAT, a compact desktop display featuring cel
 
 
 ## Project Overview
-
-H-CAT started as a computer engineering student project. I wanted to get more experience working in the real world, and to build up my electronics / EE skills. I've always enjoyed making things so I just wanted to make "something" that would be beautiful and/or useful (ideally both) and since I don't have a lot of space, it needs to be compact and unobtrusive. So all together we have: something simple(-ish), well-built, and compact that is also useful and aesthetically pleasing. 
+#### H-CAT started as a computer engineering student project. I wanted to get more experience working in the real world, and to build up my electronics / EE skills. I've always enjoyed making things so I just wanted to make "something" that would be beautiful and/or useful (ideally both) and since I don't have a lot of space, it needs to be compact and unobtrusive. So all together we have: something simple(-ish), well-built, and compact that is also useful and aesthetically pleasing. 
 ---
 
 ### Quick Links:
