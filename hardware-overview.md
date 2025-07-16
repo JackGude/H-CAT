@@ -54,7 +54,7 @@ title: Hardware Overview - H-CAT
     * Applied to the interior surfaces of the enclosure to absorb stray light and enhance the contrast of the holographic projection, making the illusion more convincing.
     * *Motivation:* Essential for the visual fidelity of the Pepper's Ghost effect.
 
-* **Internal Weighting (Lead/Steel):**
+* **Internal Weighting (Iron):**
     * Iron wheel weights are cheap and can be hidden in the base of the box. This provides a premium feel to the device and prevents it from being easily knocked over.
     * *Motivation:* Anchors the lightweight MDF/plywood box and adds to the perceived quality of the device.
 
