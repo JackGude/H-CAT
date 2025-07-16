@@ -7,7 +7,7 @@ title: Hardware Overview - H-CAT
 
 ## Core Components
 
-* **Arduino Uno (or compatible microcontroller):**
+* **Arduino Uno:**
     * The brain of the H-CAT, responsible for running all firmware, managing display modes, processing sensor inputs, and handling user interaction.
     * *Motivation:* Mainly, I have a couple on hand. They're cheap and easy to work with. They strike an interesting balance of size and power for this project. I wanted to see how much machine learning I can pull out of an Arduino.
 
@@ -32,7 +32,9 @@ title: Hardware Overview - H-CAT
 ## User Interface Components
 
 * **Dual Linear Potentiometer with Integrated On/Off Switch:**
-    * Dual Purpose Component: Serves as the primary brightness control for the display. The integrated switch will act as an on/off toggle for the device.
+    * Dual Purpose Component:
+        * The potentiometer serves as the primary brightness control for the display.
+        * The integrated switch will act as an on/off toggle for the device.
     * *Motivation:* Combines two essential controls into one compact panel-mount component.
 
 * **Momentary Panel Mount Pushbuttons (x2):**
@@ -57,5 +59,3 @@ title: Hardware Overview - H-CAT
     * *Motivation:* Anchors the lightweight MDF/plywood box and adds to the perceived quality of the device.
 
 ---
-
-**Next Steps in Hardware:** Detailed wiring diagrams, component layout within the enclosure, and specific mounting solutions.
