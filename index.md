@@ -14,7 +14,7 @@ This is the documentation hub for H-CAT, a compact desktop display featuring cel
 
 ### Quick Links:
 * [Project Goals](#project-goals)
-* [Hardware Overview](#hardware-overview)
+* [Hardware Overview](hardware-overview.md)
 * [Software Architecture](#software-architecture)
 * [Challenges & Solutions](#challenges-solutions)
 * [Progress Log](#progress-log)
