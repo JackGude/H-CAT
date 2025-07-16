@@ -45,4 +45,4 @@ It would be easy to get a 3D printer and design an enclosure styled like a big c
 
 I'm not in love this idea. I don't hate it either. It's just so far away from what I'm working on right now. This is my wild speculation about ways that this could be a viable product.
 
-I think if I was ever going to try to sell this, it's got to be either a $1000+ super fancy, AI, life guiding, cat-themed, best friend, life partner, oracle that can do all your work for you, or I've got to cut the nice LEDs and get make the whole thing like $40. It'll probably end up being 1 of 1, which is fine.
+I think if I was ever going to try to sell this, it's got to be either a $1000+ super fancy, AI, life guiding, cat-themed, best friend, life partner, oracle that can do all your work for you, or I've got to cut the nice LEDs and make the whole thing like $40. It'll probably end up being 1 of 1, which is fine.
