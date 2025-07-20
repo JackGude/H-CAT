@@ -15,6 +15,7 @@ H-CAT started as a computer engineering student project. I wanted to get more ex
 
 * [Project Goals](#project-goals)
 * [Hardware Overview](hardware-overview.md)
+* [Wiring Guide](wiring-guide.md)
 * [Software Architecture](software-architecture.md)
 * [Challenges & Solutions](challenges-solutions.md)
 * [Gallery](gallery.md)
