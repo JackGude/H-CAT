@@ -3,8 +3,6 @@ layout: default
 title: Future Work - H-CAT
 ---
 
-# Future Work (H-CAT v2)
-
 ## 1. WiFi Integration
 
 There are a lot of interesting things I could do with WiFi integration. The possibilites are too numerous to even speculate.
@@ -31,15 +29,15 @@ Again, so many applications
 
 ## 6. Refine the idea
 
-Another "product" idea - what exactly is the H-CAT? Like what is the point? I like it because it's cool and fun to build. It's not a viable product thought. The components alone are over $100, before the enclosure. Is it art? Is it a tool? Is it a companion? 
+Another "product" idea - what exactly is the H-CAT? Like what is the point? I like it because it's cool and fun to build. It's not a viable product thought. The components alone are over $100, before the enclosure. Is it art? Is it a tool? Is it a companion?
 
 Art - No, I think it's cool but it's not meaningful. It doesn't say anything, except for the time. However, it's aesthetically pleasing. Oh no, I've accidentally wandered directly into a conversation about the nature of art. Wandering on...
 
-Tool - Again, yes and no. It's not super useful. One of the modes is explicitly art, and another is genetic programming on a $30 board, not exactly "useful". It does have a clock though. 
+Tool - Again, yes and no. It's not super useful. One of the modes is explicitly art, and another is genetic programming on a $30 board, not exactly "useful". It does have a clock though.
 
 Companion - Currently hard no. This is a v2 or v3 idea, largely stemming from the coincidental usage of the word "cat" in H-CAT. I was thinking early on that my design has a lot of blank space on the front, I thought about putting some googly eyes on, and the reflector at the bottom would kind of look like a mouth. I didn't pursue the idea much further though, because with 128 LEDs, there's not a ton of interesting stuff that I could do with the "mouth". However with an OLED, the possibilities are endless.
 
-It would be easy to get a 3D printer and design an enclosure styled like a big chibi cat head, maybe put it on a little cat body stand with suction cups on the paws to keep it in place. I could even put a motor or two in the neck to make the head move. I'd also have to do something with the eyes, maybe make them screens too? Or I could also make them reflectors. If the head was wide enough, I could put upward facing projectors on either side of the main display tube. If I put the reflectors on motors and ran a face tracking software, I could make the head move to follow the viewer, and dynamically align the reflectors to direct the image to the viewer. The idea is a very "cyber-cat", I'm really not going for realism. 
+It would be easy to get a 3D printer and design an enclosure styled like a big chibi cat head, maybe put it on a little cat body stand with suction cups on the paws to keep it in place. I could even put a motor or two in the neck to make the head move. I'd also have to do something with the eyes, maybe make them screens too? Or I could also make them reflectors. If the head was wide enough, I could put upward facing projectors on either side of the main display tube. If I put the reflectors on motors and ran a face tracking software, I could make the head move to follow the viewer, and dynamically align the reflectors to direct the image to the viewer. The idea is a very "cyber-cat", I'm really not going for realism.
 
 ### Refinement - Conclusions
 
