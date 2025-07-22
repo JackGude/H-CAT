@@ -16,22 +16,10 @@ Adafruit_DotStar strip = Adafruit_DotStar(NUM_PIXELS, DATA_PIN, CLOCK_PIN, DOTST
 // --- Function Definitions ---
 
 void setupDisplay() {
-  Serial.println("DEBUG: Entering setupDisplay()...");
-  Serial.print("DEBUG: Calling strip.begin()... ");
   strip.begin();
-  Serial.println("DEBUG: strip.begin() called.");
-
-  Serial.print("DEBUG: Setting brightness to 10... ");
   strip.setBrightness(10); // A moderate, safe brightness
-  Serial.println("DEBUG: Brightness set.");
-
-  // Temporarily comment out strip.show() to isolate.
-  // Serial.print("DEBUG: Calling strip.show()... ");
-  // strip.show(); // Initialize all pixels to 'off'
-  // Serial.println("DEBUG: strip.show() called.");
-
-  Serial.println("DEBUG: Exiting setupDisplay().");
-  Serial.println("  - Display Initialized."); // Original message
+  strip.show(); // Initialize all pixels to 'off'
+  Serial.println("  - Display Initialized.");
 }
 
 // This is the correct mapping for your 16x8 non-serpentine, column-major panel.

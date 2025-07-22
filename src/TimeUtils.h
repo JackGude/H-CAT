@@ -3,6 +3,17 @@
 
 #include <Arduino.h> // For uint16_t, uint8_t types
 
+// A struct to hold the day-of-year for each season's start
+struct SeasonStartDates {
+  int marchEquinox;
+  int juneSolstice;
+  int septemberEquinox;
+  int decemberSolstice;
+};
+
+// Calculates the approximate day of the year for the four major astronomical events.
+SeasonStartDates getSeasonStartDates(int year);
+
 // Checks if a given year is a leap year.
 bool isLeapYear(int year);
 

@@ -103,7 +103,7 @@ void handleInputs()
   else
   {
     // Control Brightness
-    const int BRIGHTNESS_CUTOFF = 225;        // AnalogRead value below which brightness is 0 (approx 23% of 1023)
+    const int BRIGHTNESS_CUTOFF = 250;        // AnalogRead value below which brightness is 0 (approx 23% of 1023)
     const float MAX_LOWEND_BRIGHTNESS = 0.20; // Midpoint max brightness (20%)
 
     if (dialValue < BRIGHTNESS_CUTOFF)

@@ -127,104 +127,104 @@ void displayClock()
 
     // --- Calculations & Drawing for Progress Bars ---
     long secondsIntoDay = currentHour * 3600 + currentMinute * 60 + currentSecond;
-    long secondsIntoYear = (long)dayOfYear(currentYear, currentMonth, currentDay) * 86400 + secondsIntoDay;
+    
+    // Calculate total seconds elapsed so far this year
+    int currentDayOfYear = dayOfYear(currentYear, currentMonth, currentDay);
+    long secondsIntoYear = (long)(currentDayOfYear - 1) * 86400L + secondsIntoDay;
     long totalSecondsInYear = (long)daysInYear(currentYear) * 86400L;
 
     // Row 0: Year Progress (Custom Color)
     float yearProgress = (float)secondsIntoYear / totalSecondsInYear;
-    for (int i = 0; i < round(yearProgress * 16.0); i++)
-    {
+    for (int i = 0; i < round(yearProgress * 16.0); i++) {
       strip.setPixelColor(xyToIndex(i, 0), customColor);
     }
 
-    // Row 1: Season Progress (Accurate for Lincoln, NE / Northern Hemisphere Astronomical)
+    // --- UPDATED SEASON LOGIC ---
+    // Row 1: Season Progress (More Accurate)
+    SeasonStartDates seasonStarts = getSeasonStartDates(currentYear);
+    const int SPRING_START_DOY = seasonStarts.marchEquinox;
+    const int SUMMER_START_DOY = seasonStarts.juneSolstice;
+    const int AUTUMN_START_DOY = seasonStarts.septemberEquinox;
+    const int WINTER_START_DOY = seasonStarts.decemberSolstice;
+
     uint32_t seasonColor;
     float seasonProgress;
-    int currentDayOfYear = dayOfYear(currentYear, currentMonth, currentDay);
 
-    // Approximate Astronomical Season Start Day of Year (adjust slightly for leap year if needed, but for general progress usually fine)
-    const int SPRING_START_DOY = 80;  // March 20 (approx)
-    const int SUMMER_START_DOY = 171; // June 20 (approx)
-    const int AUTUMN_START_DOY = 265; // Sept 22 (approx)
-    const int WINTER_START_DOY = 355; // Dec 21 (approx)
-
-    // Calculate the length of each season in days (approximate)
-    int springLength = SUMMER_START_DOY - SPRING_START_DOY;                             // ~91 days
-    int summerLength = AUTUMN_START_DOY - SUMMER_START_DOY;                             // ~94 days
-    int autumnLength = WINTER_START_DOY - AUTUMN_START_DOY;                             // ~90 days
-    int winterLength = (daysInYear(currentYear) - WINTER_START_DOY) + SPRING_START_DOY; // ~89 days (or 90 for leap year)
+    int springLength = SUMMER_START_DOY - SPRING_START_DOY;
+    int summerLength = AUTUMN_START_DOY - SUMMER_START_DOY;
+    int autumnLength = WINTER_START_DOY - AUTUMN_START_DOY;
+    int winterLength = (daysInYear(currentYear) - WINTER_START_DOY) + SPRING_START_DOY;
 
     if (currentDayOfYear >= SPRING_START_DOY && currentDayOfYear < SUMMER_START_DOY)
-    {                                       // Spring
+    { // Spring
       seasonColor = strip.Color(0, 255, 0); // Green
-      seasonProgress = (float)(secondsIntoYear - (long)SPRING_START_DOY * 86400) / ((long)springLength * 86400.0);
+      long secondsIntoSeason = secondsIntoYear - (long)(SPRING_START_DOY - 1) * 86400L;
+      seasonProgress = (float)secondsIntoSeason / ((long)springLength * 86400.0);
     }
     else if (currentDayOfYear >= SUMMER_START_DOY && currentDayOfYear < AUTUMN_START_DOY)
-    {                                         // Summer
+    { // Summer
       seasonColor = strip.Color(255, 255, 0); // Yellow
-      seasonProgress = (float)(secondsIntoYear - (long)SUMMER_START_DOY * 86400) / ((long)summerLength * 86400.0);
+      long secondsIntoSeason = secondsIntoYear - (long)(SUMMER_START_DOY - 1) * 86400L;
+      seasonProgress = (float)secondsIntoSeason / ((long)summerLength * 86400.0);
     }
     else if (currentDayOfYear >= AUTUMN_START_DOY && currentDayOfYear < WINTER_START_DOY)
-    {                                         // Autumn
+    { // Autumn
       seasonColor = strip.Color(255, 165, 0); // Orange
-      seasonProgress = (float)(secondsIntoYear - (long)AUTUMN_START_DOY * 86400) / ((long)autumnLength * 86400.0);
+      long secondsIntoSeason = secondsIntoYear - (long)(AUTUMN_START_DOY - 1) * 86400L;
+      seasonProgress = (float)secondsIntoSeason / ((long)autumnLength * 86400.0);
     }
     else
-    {                                           // Winter (handles Dec 21 to end of year, and Jan 1 to Mar 19)
-      seasonColor = strip.Color(200, 200, 255); // Light Blue/Purple/White
-      if (currentDayOfYear >= WINTER_START_DOY)
-      {
-        seasonProgress = (float)(secondsIntoYear - (long)WINTER_START_DOY * 86400) / ((long)winterLength * 86400.0);
+    { // Winter
+      seasonColor = strip.Color(200, 200, 255); // Light Blue
+      long secondsIntoSeason;
+      if (currentDayOfYear >= WINTER_START_DOY) { // Winter part 1 (Dec-end of year)
+        secondsIntoSeason = secondsIntoYear - (long)(WINTER_START_DOY - 1) * 86400L;
+      } else { // Winter part 2 (Jan-Mar)
+        secondsIntoSeason = secondsIntoYear + (totalSecondsInYear - (long)(WINTER_START_DOY - 1) * 86400L);
       }
-      else
-      { // After Dec 21, before Mar 20 (next year's spring start)
-        seasonProgress = (float)((totalSecondsInYear - (long)WINTER_START_DOY * 86400) + secondsIntoYear) / ((long)winterLength * 86400.0);
-      }
+      seasonProgress = (float)secondsIntoSeason / ((long)winterLength * 86400.0);
     }
+    
     seasonProgress = fmod(seasonProgress, 1.0); // Ensure it wraps around 0-1
-
     for (int i = 0; i < round(seasonProgress * 16.0); i++)
     {
       strip.setPixelColor(xyToIndex(i, 1), seasonColor);
     }
+    // --- END UPDATED SEASON LOGIC ---
 
     // Row 2: Month Progress (Birthstone Colors)
-    // currentMonth is 1-12. Array is 0-11.
+    long secondsIntoMonth = (long)(currentDay - 1) * 86400L + secondsIntoDay;
+    long totalSecondsInMonth = (long)daysInMonth(currentYear, currentMonth) * 86400L;
     uint32_t monthColor = pgm_read_dword(&BIRTHSTONE_COLORS[currentMonth - 1]);
-    float monthProgress = (float)(currentDay * 86400 + secondsIntoDay) /
-                          (daysInMonth(currentYear, currentMonth) * 86400.0);
-    for (int i = 0; i < round(monthProgress * 16.0); i++)
-    {
+    float monthProgress = (float)secondsIntoMonth / totalSecondsInMonth;
+    for (int i = 0; i < round(monthProgress * 16.0); i++) {
       strip.setPixelColor(xyToIndex(i, 2), monthColor);
     }
 
-    // Row 3: Week Progress (Custom Color, restarts Monday)
-    // dayOfWeek returns 0=Monday, 6=Sunday. This is directly usable.
-    float weekProgress = (float)(dayOfWeek(currentYear, currentMonth, currentDay) * 86400 + secondsIntoDay) / (7.0 * 86400.0);
-    for (int i = 0; i < round(weekProgress * 16.0); i++)
-    {
+    // Row 3: Week Progress (Custom Color, assuming Monday=0 from dayOfWeek)
+    long secondsIntoWeek = (long)dayOfWeek(currentYear, currentMonth, currentDay) * 86400L + secondsIntoDay;
+    float weekProgress = (float)secondsIntoWeek / (7.0f * 86400.0f);
+    for (int i = 0; i < round(weekProgress * 16.0); i++) {
       strip.setPixelColor(xyToIndex(i, 3), customColor);
     }
 
     // Row 4: Day Progress (Custom Color)
-    float dayProgress = (float)secondsIntoDay / (24.0 * 3600.0);
-    for (int i = 0; i < round(dayProgress * 16.0); i++)
-    {
+    // The formula itself was correct, but applying the consistent 'L' for long constants is good practice.
+    float dayProgress = (float)secondsIntoDay / (24.0f * 3600.0f);
+    for (int i = 0; i < round(dayProgress * 16.0); i++) {
       strip.setPixelColor(xyToIndex(i, 4), customColor);
     }
-
+    
     // Row 5: Hour Progress (White)
-    float hourProgress = (float)(currentMinute * 60 + currentSecond) / 3600.0;
-    for (int i = 0; i < round(hourProgress * 16.0); i++)
-    {
-      strip.setPixelColor(xyToIndex(i, 5), whiteColor); // White
+    float hourProgress = (float)(currentMinute * 60L + currentSecond) / 3600.0f;
+    for (int i = 0; i < round(hourProgress * 16.0); i++) {
+      strip.setPixelColor(xyToIndex(i, 5), whiteColor);
     }
 
     // Row 6: Minute Progress (White)
-    float minuteProgress = currentSecond / 59.0; // 0-59 seconds for full range
-    for (int i = 0; i < round(minuteProgress * 16.0); i++)
-    {
-      strip.setPixelColor(xyToIndex(i, 6), whiteColor); // White
+    float minuteProgress = (float)currentSecond / 59.0f;
+    for (int i = 0; i < round(minuteProgress * 16.0); i++) {
+      strip.setPixelColor(xyToIndex(i, 6), whiteColor);
     }
 
     // Row 7: Binary Clock (1x1 horizontal pixels with inactive lit)

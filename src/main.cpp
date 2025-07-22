@@ -1,13 +1,17 @@
 #include <Arduino.h>
-#include "Display.h"     // Our display functions
-#include "Timekeeping.h" // Our new timekeeping functions
-#include "Input.h"       // Our input handling functions
-#include "State.h"       // Our state struct
-#include "Modes.h"       // Our modes struct and runCurrentMode function
-#include "Persistence.h" // Our persistence functions
-#include <EEPROM.h>      // Include EEPROM library here for direct access
-#include "RTC.h"         // Explicitly include RTC.h here for RTCTime and RTC.getTime()
+#include "Display.h"
+#include "Timekeeping.h"
+#include "Input.h"
+#include "State.h"
+#include "Modes.h"
+#include "Persistence.h"
+#include <EEPROM.h>
+#include "RTC.h"
 #include "RTClib.h"
+
+// This pin is also defined in Input.cpp. For a future improvement,
+// consider moving all pin definitions to a single "HardwarePins.h" header.
+const int ON_OFF_PIN = 4;
 
 // Define the global state object.
 ProjectorState state;
@@ -17,78 +21,63 @@ void setup() {
   delay(1000);
   Serial.println("--- Projector Booting Up ---");
 
-  // Attempt to load state from EEPROM
-  EEPROM.get(0, state); // This loads directly into the global 'state' object
+  // --- FIX: Initialize inputs and check power switch FIRST ---
+  setupInputs();
+  bool isPowerSwitchOn = (digitalRead(ON_OFF_PIN) == LOW);
 
-  // Validate loaded state. If invalid, reset to defaults and save.
+  // Attempt to load the rest of the state from EEPROM
+  EEPROM.get(0, state);
+
+  // --- FIX: Immediately override the loaded 'isOn' state with the physical switch's actual state ---
+  state.isOn = isPowerSwitchOn;
+
+  // Validate loaded state. If invalid, reset to defaults.
   if (state.currentModeIndex >= NUM_MODES || state.currentModeIndex < 0 || state.brightness > 1.0 || state.brightness < 0.0) {
       Serial.println("WARNING: Loaded EEPROM state appears invalid. Resetting to defaults.");
-      state.isOn = true;
+      // Note: state.isOn is already correctly set from the physical switch, so we don't reset it here.
       state.brightness = 1.0;
-      state.currentModeIndex = 0; // Default to Clock mode
+      state.currentModeIndex = 0;
       for(int i = 0; i < sizeof(state.modeSubmodeIndices)/sizeof(state.modeSubmodeIndices[0]); i++) {
         state.modeSubmodeIndices[i] = 0;
       }
       state.currentThemeIndex = 0;
       state.customColor = {255, 255, 255};
-      saveState();
-      Serial.println("INFO: Defaults applied and saved to EEPROM.");
+      
+      // Only save the new default state if the switch is on.
+      if (state.isOn) {
+        saveState();
+        Serial.println("INFO: Defaults applied and saved to EEPROM.");
+      }
   } else {
     Serial.println("INFO: Loaded EEPROM state is valid.");
   }
 
-  Serial.println("INFO: EEPROM load/validation complete.");
+  // Initialize the rest of the hardware
+  setupTime();
+  setupDisplay();
 
-  // Initialize hardware
-  setupTime();       // Initializes RTC
-  setupDisplay();    // Initializes LED strip
-  setupInputs();     // Initializes buttons and potentiometer
-
-  // Apply initial brightness *after* state is loaded and display is setup
-  strip.setBrightness(state.brightness * 255);
+  // Apply initial brightness only if the device is supposed to be on
+  if (state.isOn) {
+    strip.setBrightness(state.brightness * 255);
+  } else {
+    // If off, ensure the display is blank and brightness is zero
+    strip.setBrightness(0);
+    strip.clear();
+    strip.show();
+  }
 
   Serial.println("Setup complete. Entering main loop.");
 }
 
 void loop() {
-  // --- TEMPORARILY COMMENT OUT handleInputs() ---
-  handleInputs(); 
+  handleInputs();
 
-  // Run the currently selected display mode logic
-  runCurrentMode();
-
-  // --- Time Logic (Keep for debugging) ---
-  if (rtc_found) {
-    static int lastPrintedSecond = -1;
-    RTCTime r4_currentTime; 
-    RTC.getTime(r4_currentTime); 
-
-    DateTime now(
-      r4_currentTime.getYear(),
-      Month2int(r4_currentTime.getMonth()),
-      r4_currentTime.getDayOfMonth(),
-      r4_currentTime.getHour(),
-      r4_currentTime.getMinutes(),
-      r4_currentTime.getSeconds()
-    );
-
-    if (now.second() != lastPrintedSecond) {
-      Serial.print("RTC Time: ");
-      Serial.print(now.hour());
-      Serial.print(":");
-      if(now.minute() < 10) Serial.print('0');
-      Serial.print(now.minute());
-      Serial.print(":");
-      if(now.second() < 10) Serial.print('0');
-      Serial.println(now.second());
-      lastPrintedSecond = now.second();
-
-      // Debugging Input State - Keep this for now to ensure inputs are still working
-      Serial.print("Mode: "); Serial.print(state.currentModeIndex);
-      Serial.print(" Submode["); Serial.print(state.currentModeIndex); Serial.print("]: "); Serial.print(state.modeSubmodeIndices[state.currentModeIndex]);
-      Serial.print(" Brightness: "); Serial.println(state.brightness);
-      Serial.print(" Theme: "); Serial.print(state.currentThemeIndex);
-      Serial.print(" Custom Color: "); Serial.print(state.customColor.r); Serial.print(","); Serial.print(state.customColor.g); Serial.print(","); Serial.println(state.customColor.b);
-    }
+  if (state.isOn) {
+    runCurrentMode();
+  } else {
+    // To be safe, ensure the strip is off if the state was toggled off during runtime.
+    strip.clear();
+    strip.show();
+    delay(100); // A small delay to prevent the loop from spinning too fast when off.
   }
 }
