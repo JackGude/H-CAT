@@ -1,9 +1,9 @@
 #include "Input.h" // <-- This now includes the new header
-#include "State.h"
-#include "Persistence.h"
-#include "Modes.h"
-#include "Themes.h"
-#include "Utils.h"
+#include "Config/State.h"
+#include "Services/Persistence.h"
+#include "Config/Modes.h"
+#include "Config/Themes.h"
+#include "Utils/Utils.h"
 
 // --- HARDWARE PIN DEFINITIONS ---
 const int MODE_BUTTON_PIN = 2;

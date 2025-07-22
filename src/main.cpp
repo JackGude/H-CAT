@@ -1,10 +1,10 @@
 #include <Arduino.h>
-#include "Display.h"
-#include "Timekeeping.h"
-#include "Input.h"
-#include "State.h"
-#include "Modes.h"
-#include "Persistence.h"
+#include "Hardware/Display.h"
+#include "Services/Timekeeping.h"
+#include "Hardware/Input.h"
+#include "Config/State.h"
+#include "Config/Modes.h"
+#include "Services/Persistence.h"
 #include <EEPROM.h>
 #include "RTC.h"
 #include "RTClib.h"

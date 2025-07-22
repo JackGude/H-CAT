@@ -1,5 +1,5 @@
 #include "Persistence.h"
-#include "State.h"      // Needs to know about the ProjectorState struct
+#include "Config/State.h"      // Needs to know about the ProjectorState struct
 #include <EEPROM.h>     // Arduino's EEPROM library
 #include <Arduino.h>    // For Serial
 

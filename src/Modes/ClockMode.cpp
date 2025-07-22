@@ -1,14 +1,14 @@
 #include "ClockMode.h"
-#include "State.h"
-#include "Display.h"     // Needed for strip.Color and xyToIndex from DisplayUtils.cpp, if not implicitly included via DisplayUtils.h
-#include "Timekeeping.h" // Needed for rtc object
+#include "Config/State.h"
+#include "Hardware/Display.h"     // Needed for strip.Color and xyToIndex from DisplayUtils.cpp, if not implicitly included via DisplayUtils.h
+#include "Services/Timekeeping.h" // Needed for rtc object
 #include <Arduino.h>
 #include <avr/pgmspace.h> // Still needed for FONT array in DisplayUtils.cpp.
 #include <math.h>         // Needed for fmod and round functions
 
 // Include our new utility headers
-#include "DisplayUtils.h" // For drawCharacter, drawOne, drawDigit, drawBinaryHorizontal
-#include "TimeUtils.h"    // For isLeapYear, daysInMonth, daysInYear, dayOfWeek, dayOfYear
+#include "Utils/DisplayUtils.h" // For drawCharacter, drawOne, drawDigit, drawBinaryHorizontal
+#include "Utils/TimeUtils.h"    // For isLeapYear, daysInMonth, daysInYear, dayOfWeek, dayOfYear
 #include "RTC.h"
 #include "RTClib.h"
 

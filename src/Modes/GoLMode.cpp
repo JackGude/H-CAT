@@ -1,8 +1,8 @@
-#include "CAMode.h"
-#include "Display.h"
-#include "State.h"
+#include "GoLMode.h"
+#include "Hardware/Display.h"
+#include "Config/State.h"
 #include <Arduino.h>
-#include "Utils.h"
+#include "Utils/Utils.h"
 
 // --- Configuration ---
 const int SIM_WIDTH = 16;
@@ -96,7 +96,7 @@ void seedColorLifeGrid()
   }
 }
 
-void initCellularAutomata()
+void initGoLSim()
 {
   myRandomSeed(millis());
 
@@ -299,7 +299,7 @@ void calculateNextGenColor()
 }
 
 // This is the main display function for the Cellular Automata mode.
-void displayCellularAutomata()
+void displayGoLSim()
 {
   static int lastModeType = -1;
   int currentSubmode = state.modeSubmodeIndices[state.currentModeIndex];
@@ -307,7 +307,7 @@ void displayCellularAutomata()
 
   if (currentModeType != lastModeType)
   {
-    initCellularAutomata();
+    initGoLSim();
     lastModeType = currentModeType;
   }
 

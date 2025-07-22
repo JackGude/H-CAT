@@ -1,5 +1,5 @@
 #include "DisplayUtils.h"
-#include "Display.h" // Needed to access the global 'strip' object and xyToIndex definition
+#include "Hardware/Display.h" // Needed to access the global 'strip' object and xyToIndex definition
 
 // --- Custom Font Data (Stored in Flash Memory) ---
 const byte FONT[10][3] PROGMEM = {
