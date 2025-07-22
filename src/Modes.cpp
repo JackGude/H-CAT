@@ -5,16 +5,16 @@
 
 // Include the mode-specific headers
 #include "ClockMode.h"
-// #include "CAMode.h"   // Keep commented out to disable CA mode
-// #include "ArtMode.h"  // Keep commented out
+#include "CAMode.h"
+#include "ArtMode.h"
 
 // --- MODE DEFINITIONS ---
-const int NUM_MODES = 1; // Revert to 1 mode (Clock only)
+const int NUM_MODES = 3;
 const Mode modes[NUM_MODES] = {
   // { "Name", Num Submodes, Init Function, Display Function }
-  { "Clock", 5, &initClock, &displayClock }
-  // { "Cellular Automata", 6, &initCellularAutomata, &displayCellularAutomata } // Keep commented out
-  // { "Art", 8, &initArt, &displayArt } // Keep commented out
+  { "Clock", 5, &initClock, &displayClock },
+  { "Cellular Automata", 6, &initCellularAutomata, &displayCellularAutomata },
+  { "Art", 3, &initArt, &displayArt }
 };
 
 void runCurrentMode() {

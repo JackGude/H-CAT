@@ -9,6 +9,8 @@
 // Include our new utility headers
 #include "DisplayUtils.h" // For drawCharacter, drawOne, drawDigit, drawBinaryHorizontal
 #include "TimeUtils.h"    // For isLeapYear, daysInMonth, daysInYear, dayOfWeek, dayOfYear
+#include "RTC.h"
+#include "RTClib.h"
 
 // --- Birthstone Colors (for Month Progress Bar) ---
 // Indexed 0-11 for Jan-Dec. Stored in PROGMEM.
@@ -48,7 +50,20 @@ void initClock()
 void displayClock()
 {
   strip.clear();
-  DateTime now = rtc.now();                                                                          // Get current time from RTC
+  // --- CORRECTED RTC TIME RETRIEVAL AND DATETIME CONSTRUCTION ---
+  RTCTime r4_currentTime; // Declare an RTCTime object (from R4's RTC.h)
+  RTC.getTime(r4_currentTime); // Use the global RTC object to populate r4_currentTime
+
+  // Construct an RTClib DateTime object from the R4's RTCTime object
+    DateTime now(
+      r4_currentTime.getYear(),
+      Month2int(r4_currentTime.getMonth()), // Convert Month enum to int
+      r4_currentTime.getDayOfMonth(),
+      r4_currentTime.getHour(),
+      r4_currentTime.getMinutes(),
+      r4_currentTime.getSeconds());
+  // --- END CORRECTED RTC TIME RETRIEVAL ---
+
   uint32_t customColor = strip.Color(state.customColor.r, state.customColor.g, state.customColor.b); // Use customColor for general fills
 
   // --- DEBUGGING: Print the time and input state to the Serial Monitor (once per second) ---
