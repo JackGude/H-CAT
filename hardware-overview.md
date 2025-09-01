@@ -40,9 +40,9 @@ title: Hardware Overview - H-CAT
 
 ## Enclosure & Illusion Components
 
-* **1/8" MDF / Plywood:**
+* **~~1/8" MDF / Plywood~~ PLA:**
   * The primary material for the custom enclosure, providing structural integrity and a paintable surface for the desired aesthetic.
-  * *Motivation:* Chosen for its cost-effectiveness, ease of workability with basic tools, and ability to be transformed visually.
+  * *Motivation:* Chosen for its ability to be printed.
 
 * **Clear Acrylic Sheet (~ 3mm thick):**
   * The crucial component for creating the Pepper's Ghost holographic illusion. Positioned at a precise angle to reflect the downward-facing LEDs upwards towards the viewer.
