@@ -1,6 +1,9 @@
 ---
 layout: default
-title: Challenges & Solutions - H-CAT
+title: Challenges & Solutions
+nav_order: 5
+parent: Project Documentation
+has_children: false
 ---
 
 Developing H-CAT presented several interesting technical and design challenges. Overcoming these hurdles was a key learning experience in this project.

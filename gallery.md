@@ -1,8 +1,10 @@
 ---
 layout: default
-title: Gallery - H-CAT
+title: Gallery
+nav_order: 6
+parent: Project Documentation
+has_children: false
 ---
-
 
 # H-CAT Project Gallery
 
@@ -107,7 +109,6 @@ Welcome to the visual documentation of the H-CAT project. This gallery showcases
 *Coming soon - Control interface demonstration*
 
 ---
-
 
 ## Media Credits
 

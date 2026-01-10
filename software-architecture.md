@@ -1,6 +1,9 @@
 ---
 layout: default
-title: Software Architecture - H-CAT
+title: Software Architecture
+nav_order: 4
+parent: Software
+has_children: false
 ---
 
 

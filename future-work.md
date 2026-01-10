@@ -1,6 +1,9 @@
 ---
 layout: default
-title: Future Work - H-CAT
+title: Future Work
+nav_order: 7
+parent: Project Documentation
+has_children: false
 ---
 
 

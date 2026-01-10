@@ -1,6 +1,9 @@
 ---
 layout: default
-title: Wiring Guide - H-CAT
+title: Wiring Guide
+nav_order: 3
+parent: Hardware
+has_children: false
 ---
 
 

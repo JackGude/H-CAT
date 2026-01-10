@@ -1,3 +1,28 @@
 title: "H-CAT: Holographic Cellular Automata Toy"
 description: "A desk-top display featuring generative art, cellular automata, and a precision clock."
-theme: minima
+remote_theme: pmarsceill/just-the-docs@v0.4.0
+
+# Enable or disable the site search
+search_enabled: true
+
+# Aux links for the upper right navigation
+aux_links:
+  "View on GitHub":
+    - "https://github.com/jackgude/H-CAT"
+
+# Makes Aux links open in a new tab. Default is false
+aux_links_new_tab: true
+
+# Color scheme currently only supports "dark", "light"/nil (default), or "custom"
+color_scheme: light
+
+# Google Analytics tracking (optional)
+ga_tracking: UA-XXXXXXXXX-X
+
+# Sort order for navigation links
+nav_sort: case_insensitive
+
+# Back to top link
+back_to_top: true
+
+back_to_top_text: "Back to top"
