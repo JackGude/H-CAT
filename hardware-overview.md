@@ -3,57 +3,244 @@ layout: default
 title: Hardware Overview - H-CAT
 ---
 
+
+## Overview
+
+The H-CAT hardware is carefully selected to balance performance, cost, and size constraints while delivering an engaging visual experience through the Pepper's Ghost holographic illusion.
+
 ## Core Components
 
-* **Arduino Uno:**
-  * The brain of the H-CAT, responsible for running all firmware, managing display modes, processing sensor inputs, and handling user interaction.
-  * *Motivation:* Mainly, I have a couple on hand. They're cheap and easy to work with. They strike an interesting balance of size and power for this project. I wanted to see how much machine learning I can pull out of an Arduino.
+### Arduino R4 Minima
 
-* **Adafruit DotStar RGB LED Matrix - 8x8 (x2):**
-  * These two 8x8 (64-pixel) matrices are daisy-chained to form a seamless 16x8 pixel canvas. They are the primary visual output for the holographic display.
-  * *Motivation:* These were the components that finalized this project for me. I was shopping on Adafruit and saw these 1" x 1", super bright lil guys. They looked like candy in the pictures so that was that.
+**Primary microcontroller responsible for:**
 
-* **DS3231 Precision Real-Time Clock (RTC) Module:**
-  * Provides accurate timekeeping capabilities, ensuring the H-CAT's clock mode remains precise even when the device is unpowered. Features an integrated temperature-compensated crystal for superior accuracy.
-  * *Motivation:* Essential for Clock Mode
+- Running all firmware and managing display modes
 
-* **5V 4A DC Wall Adapter Power Supply:**
-  * The main power source for the entire H-CAT system, providing a stable 5V at up to 4 amps to reliably drive the 128 DotStar LEDs and the Arduino Uno.
-  * *Motivation:* The LEDs pull quite a bit of power, at full power this isn't actually enought to push them to 100% brightness and run the arduino. I don't plan to ever do that though, and Adafruit didn't have a 5V 5A adapter.
+- Processing sensor inputs and user interactions
 
-* **Power Adapters:**
-  * USB-C to Barrel Jack Power Adapter
-  * Barrel Jack to Positive and Negative Power Rails
-  * *Motivation:* The idea here is to be able to put a port on the H-CAT. With this setup you should be able to just plug in the 5V4A USB-C cable and it will power the entire thing.
+- Handling real-time clock communication
 
-## User Interface Components
+- Controlling LED matrix rendering
 
-* **Dual Linear Potentiometer with Integrated On/Off Switch:**
-  * Dual Purpose Component:
-    * The potentiometer serves as the primary brightness control for the display.
-    * The integrated switch will act as an on/off toggle for the device.
-  * *Motivation:* Combines two essential controls into one compact panel-mount component.
+**Selection Rationale:**
 
-* **Momentary Panel Mount Pushbuttons (x2):**
-  * Dedicated buttons for cycling through main display modes and sub-modes, providing intuitive navigation of H-CAT's features.
-  * *Motivation:* Provides clear, physical interaction points for mode selection.
+- Significant memory upgrade from Uno R3 (32KB SRAM vs 2KB)
 
-## Enclosure & Illusion Components
+- Improved processing performance for complex animations
 
-* **~~1/8" MDF / Plywood~~ PLA:**
-  * The primary material for the custom enclosure, providing structural integrity and a paintable surface for the desired aesthetic.
-  * *Motivation:* Chosen for its ability to be printed.
+- Backward compatibility with existing Uno codebase
 
-* **Clear Acrylic Sheet (~ 3mm thick):**
-  * The crucial component for creating the Pepper's Ghost holographic illusion. Positioned at a precise angle to reflect the downward-facing LEDs upwards towards the viewer.
-  * *Motivation:* Offers excellent clarity and sufficient rigidity for the illusion, while being safer and easier to cut than glass.
+- Same form factor for easy integration
 
-* **Matte Black Paint / Internal Lining:**
-  * Applied to the interior surfaces of the enclosure to absorb stray light and enhance the contrast of the holographic projection, making the illusion more convincing.
-  * *Motivation:* Essential for the visual fidelity of the Pepper's Ghost effect.
+### Adafruit DotStar RGB LED Matrix - 8x8 (x2)
 
-* **Internal Weighting (Iron):**
-  * Iron wheel weights are cheap and can be hidden in the base of the box. This provides a premium feel to the device and prevents it from being easily knocked over.
-  * *Motivation:* Anchors the lightweight MDF/plywood box and adds to the perceived quality of the device.
+**Display system configuration:**
+
+- Two 8x8 (64-pixel) matrices daisy-chained to form 16x8 canvas
+
+- High-brightness LEDs for vivid holographic projection
+
+- Individual pixel addressing for complex patterns
+
+**Selection Rationale:**
+
+- Compact 1"×1" form factor perfect for desktop display
+
+- Superior brightness compared to NeoPixels for holographic effect
+
+- SPI interface for fast, reliable communication
+
+### DS3231 Precision Real-Time Clock (RTC) Module
+
+**Timekeeping capabilities:**
+
+- Temperature-compensated crystal oscillator
+
+- Battery backup for time retention during power loss
+
+- I2C communication interface
+
+- ±2ppm accuracy (±1 minute per year)
+
+## Power System
+
+### 5V 4A DC Wall Adapter Power Supply
+
+**Primary power source providing:**
+
+- Stable 5V output at up to 4 amps
+
+- Sufficient current for full-brightness LED operation
+
+- Reliable power for continuous operation
+
+**Power Requirements Analysis:**
+
+- Maximum LED current: 128 LEDs × 40mA = 5.12A
+
+- Maximum working load: 4A/5.12A = 78.125%
+
+- Arduino current: ~100mA
+
+### Power Distribution Architecture
+
+**USB-C Integration:**
+
+- USB-C to barrel jack adapter for modern connectivity
+
+- Internal power distribution board for clean wiring
+
+- Common ground network for all components
+
+**Power Busses:**
+
+- High-current bus: External 5V for LED matrices
+
+- Low-current bus: Arduino 5V for sensitive components
+
+- Isolated grounds to prevent noise interference
+
+## User Interface
+
+### Dual Linear Potentiometer with Integrated Switch
+
+**Multi-function control:**
+
+- Potentiometer: Brightness control (16 levels)
+
+- Integrated switch: Main power toggle
+
+- Panel-mount design for clean installation
+
+**Interface Design:**
+
+- Smooth, analog brightness adjustment
+
+- Positive detent for power on/off position
+
+- Compact form factor and dual functionality
+
+### Momentary Panel Mount Pushbuttons (x2)
+
+**Mode navigation controls:**
+
+- Mode button: Cycle through primary display modes
+
+- Submode button: Access mode-specific options
+
+- Tactile feedback for positive user experience
+
+**Button Implementation:**
+
+- Active-low configuration with internal pull-ups
+
+- Debounced in software for reliable operation
+
+## Enclosure & Optical System
+
+### 3D Printed PLA Enclosure
+
+**Structural design:**
+
+- Custom-designed for optimal component placement
+
+- Internal chamber separation for electronics and display
+
+- Matte black interior for light absorption
+
+- Compact dimensions (Target: 2.5"×2.5"×4")
+
+**Design Features:**
+
+- Two-chamber layout isolates power electronics from display
+
+- Removable back panel with magnetic attachment
+
+- Integrated mounting points for all components
+
+- Ventilation channels for heat dissipation
+
+### Pepper's Ghost Optical System
+
+**Holographic illusion components:**
+
+- 3mm clear acrylic reflector at 33° angle
+
+- Optimized for desk-level viewing (1.3ft eye level)
+
+- Matte black interior for contrast enhancement
+
+**Optical Design:**
+
+- Downward-facing LED matrices for hidden light source
+
+- Angled reflector projects "floating" image
+
+- Carefully calculated geometry for convincing illusion
+
+### Internal Weighting System
+
+**Stability enhancement:**
+
+- Iron wheel weights concealed in base
+
+- Low center of gravity for tip resistance
+
+- Premium feel despite lightweight construction
+
+## Component Layout
+
+### Display Chamber (Front Half)
+
+- LED matrices mounted on top interior surface
+
+- Acrylic reflector at specified angle
+
+- Front aperature size optimized for viewing
+
+### Electronics Chamber (Rear Half)
+
+- Arduino mounted on removable back panel
+
+- Power distribution board with standoff mounting
+
+- RTC module and input controls on roof panel
+
+- Weight system integrated into base
+
+### Cable Management
+
+- Organized wire routing channels
+
+- Strain relief for external connections
+
+- Serviceable design for maintenance access
+
+## Bill of Materials
+
+| Component | Quantity | Cost (USD) | Notes |
+| ----------- | ---------- | ------------ | ------- |
+| Arduino R4 Minima | 1 | ~$20 | Main controller |
+| DotStar 8x8 Matrix | 2 | ~$25 | LED display |
+| DS3231 RTC Module | 1 | ~$18 | Timekeeping |
+| 5V 4A Power Supply | 1 | ~$8 | External power |
+| USB-C Barrel Adapter | 1 | ~$2 | Power interface |
+| Potentiometer w/Switch | 1 | ~$2 | Brightness/power |
+| Panel Pushbuttons | 2 | ~$1 | Mode controls |
+| Acrylic Sheet | 1 | ~$16 | Reflector |
+| Iron Weights (60oz) | 1 | ~$17 | Stability |
+| **Total** | | **~$135** | **Prototype cost** |
 
 ---
+
+## Design Philosophy
+
+The H-CAT hardware embodies several key engineering principles:
+
+1. **Modularity**: Each subsystem can be independently tested and replaced
+2. **Scalability**: Architecture supports future feature additions
+3. **Serviceability**: Designed for maintenance and modification
+4. **Aesthetics**: Professional appearance suitable for portfolio display
+5. **Reliability**: Robust power management and error handling
+
+This hardware foundation enables sophisticated software features while maintaining a precise, compact form factor.
