@@ -2,7 +2,6 @@
 layout: default
 title: Challenges & Solutions
 nav_order: 5
-parent: Project Documentation
 has_children: false
 ---
 

@@ -2,11 +2,10 @@
 layout: default
 title: Gallery
 nav_order: 6
-parent: Project Documentation
 has_children: false
 ---
 
-# H-CAT Project Gallery
+H-CAT Project Gallery
 
 Welcome to the visual documentation of the H-CAT project. This gallery showcases the development process from initial concept to working prototype.
 

@@ -2,7 +2,6 @@
 layout: default
 title: Software Architecture
 nav_order: 4
-parent: Software
 has_children: false
 ---
 

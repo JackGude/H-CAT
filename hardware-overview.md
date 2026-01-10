@@ -2,7 +2,6 @@
 layout: default
 title: Hardware Overview
 nav_order: 2
-parent: Hardware
 has_children: false
 ---
 

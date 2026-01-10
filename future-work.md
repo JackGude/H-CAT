@@ -2,7 +2,6 @@
 layout: default
 title: Future Work
 nav_order: 7
-parent: Project Documentation
 has_children: false
 ---
 
