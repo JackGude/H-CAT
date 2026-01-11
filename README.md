@@ -6,7 +6,9 @@ A compact desktop display featuring generative art, cellular automata simulation
 ![Platform](https://img.shields.io/badge/Platform-Arduino%20Uno-blue)
 ![Language](https://img.shields.io/badge/Language-C%2B%2B-orange)
 
-## Overview
+## Project Overview
+
+![H-CAT Closeup](Assets/Closeup.gif)
 
 H-CAT is an embedded engineering project that combines hardware design, firmware development, and optical physics to create an engaging desktop display. The device features three main modes:
 
