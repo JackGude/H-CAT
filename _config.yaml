@@ -2,6 +2,15 @@ title: "H-CAT: Holographic Cellular Automata Toy"
 description: "A desk-top display featuring generative art, cellular automata, and a precision clock."
 remote_theme: pmarsceill/just-the-docs@v0.4.0
 
+# GitHub Pages configuration
+baseurl: "/H-CAT"
+url: "https://jackgude.github.io"
+
+# Include docs folder for Jekyll processing
+include:
+  - _docs
+  - docs
+
 # Enable or disable the site search
 search_enabled: true
 
